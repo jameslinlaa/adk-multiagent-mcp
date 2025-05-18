@@ -1,7 +1,7 @@
 from google.adk.agents import SequentialAgent
 from .sub_agents.netflix_db.agent import netflix_db_agent
 from .sub_agents.search_agent.agent import search_agent
-
+from .sub_agents.formatter_agent.agent import formatter_agent
 
 from . import prompt
 
@@ -13,6 +13,7 @@ root_agent = SequentialAgent(
     sub_agents=[
         netflix_db_agent,
         search_agent,
+        formatter_agent,
     ],
 )
 

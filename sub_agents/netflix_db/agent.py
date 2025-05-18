@@ -16,4 +16,5 @@ netflix_db_agent = Agent(
     ),
     instruction=prompt.PROMPT,  
     tools=tools,
+    output_key="netflix_record",  # Save result to state
 )

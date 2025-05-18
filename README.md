@@ -11,7 +11,8 @@ Root agent will sequentially call sub agents to provide information.
 
 *   **netflix_db_agent** agent use [MCP toolbox](https://github.com/googleapis/genai-toolbox) to query postgresql
     * netflix sample database: https://www.kaggle.com/datasets/shivamb/netflix-shows
-*   **search_agent** agent use built-in google search to provide movie information 
+*   **search_agent** agent use built-in google search to provide movie information, like US Box Office Gross
+*   **formatter_agent** combines the records from netflix_db_agent & the public info from search_agent, and output them in markdown
     
 
 This sample agent enables a user to query movie on netflix and agent
@@ -68,4 +69,4 @@ ls ~/go/bin/genai-toolbox
 ## Result
 
 
-![screenshot](static/demo1.png)
+![screenshot](static/demo2.png)

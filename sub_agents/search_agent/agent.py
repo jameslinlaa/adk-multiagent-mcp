@@ -14,5 +14,7 @@ search_agent = Agent(
    # Instructions to set the agent's behavior.
    instruction=prompt.PROMPT,
    # Add google_search tool to perform grounding with Google search.
-   tools=[google_search]
+   tools=[google_search],
+   output_key="internet_info",  # Save result to state
 )
+
