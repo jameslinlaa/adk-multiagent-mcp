@@ -9,27 +9,25 @@ The agent will provide the information from Netflix sample DB and public informa
 Root agent will sequentially call sub agents to provide information. 
  
 
-*   **netflix_db_agent** agent use [MCP toolbox](https://github.com/googleapis/genai-toolbox) to query postgresql
-    * netflix sample database: https://www.kaggle.com/datasets/shivamb/netflix-shows
-*   **search_agent** agent use built-in google search to provide movie information, like US Box Office Gross
-*   **formatter_agent** combines the records from netflix_db_agent & the public info from search_agent, and output them in markdown
+*   **netflix_db_agent** agent use MCP to query netflix sample db on postgresql
+*   **search_agent** search public movie information, like box office gross
+*   **formatter_agent** combines the info from above two agents, and output them in markdown
     
 
-This sample agent enables a user to query movie on netflix and agent
-also provide the movie information from internet
-
+<BR>
 
 ## Agent Details
 
-The key features of the LLM Auditor include:
+The key features of the Movie Agent include:
 
 | Feature | Description |
 | --- | --- |
 | **Interaction Type** | Workflow |
 | **Complexity**  | Easy |
 | **Agent Type**  | Multi Agent |
-| **Components**  | Tools: built-in Google Search |
+| **Components**  | Tools: built-in Google Search, MCP |
 
+<BR>
 
 ### Agent architecture:
 
@@ -37,24 +35,45 @@ This diagram shows the detailed architecture of the agents and tools used
 to implement this workflow.
 ![screenshot](static/movie_agents_architecture.png)
 
+
+| Sub Agent | Tools | Description |
+| --- | --- | --- |
+| **netflix_db_agent** | MCP | Query netflix sample db on local postgresql 
+| **search_agent**  | build-in Google Search | Search movie information like box office gross via google search
+| **formatter_agent**  | - | Combine two above agents info, and output them in markdown
+
+<BR>
+
+### Agent Details:
+
+*   **netflix_db_agent** 
+    * Use [MCP toolbox](https://github.com/googleapis/genai-toolbox) to query local postgresql
+    * netflix sample database: https://www.kaggle.com/datasets/shivamb/netflix-shows
+*   **search_agent** 
+    * Use built-in google search to provide movie information, like US Box Office Gross
+*   **formatter_agent** 
+    * combines the state['netflix_record'] and state['internet_info'], and output them in markdown
+
+<BR>
+
 ## System Background
 
 1.  **Prerequisites**
 
     *   Python 3.11+
     *   Google-Adk 0.4.0
-    *   mcp toolbox for database
+    *   [MCP toolbox for database](https://github.com/googleapis/genai-toolbox) 
         * No avaliable binary for macbook, build by yourself
-        
-```
-# build via go
-go install github.com/googleapis/genai-toolbox@v0.5.0
-go build
+                
+        ```
+        # build via go
+        go install github.com/googleapis/genai-toolbox@v0.5.0
+        go build
 
-# find the binary 
-ls $GOPATH/pkg
-ls ~/go/bin/genai-toolbox
-```
+        # find the binary 
+        ls $GOPATH/pkg
+        ls ~/go/bin/genai-toolbox
+        ```
         
 
 2. **Encountered Issues**
@@ -65,8 +84,18 @@ ls ~/go/bin/genai-toolbox
         * Another workaround is to use Sequential Agent like the sample agents from ADK, like [llm_auditor](https://github.com/google/adk-samples/tree/main/agents/llm-auditor)
 
 
+<BR>
+
 
 ## Result
 
 
 ![screenshot](static/demo2.png)
+
+<BR>
+<BR>
+
+## Reference
+1. (Build a Travel Agent using MCP Toolbox for Databases and Agent Development Kit (ADK))[https://codelabs.developers.google.com/travel-agent-mcp-toolbox-adk#0]
+
+2. (ADK sample agent - LLM Auditor)[https://github.com/google/adk-samples/tree/main/agents/llm-auditor]
